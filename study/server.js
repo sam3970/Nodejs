@@ -2,6 +2,19 @@ var http = require('http');
 var fs = require('fs');
 var url = require('url');
 
+var express = require('express');
+var app = express();
+var router = require('./router/main.js')(app);
+
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+app.engine('html', require('ejs').renderFile);
+
+var server = app.listen(3000, function(){
+    console.log("Express server has started on port 3000")
+});
+app.use(express.static('public'));
+
 //서버 생성
 http.createServer(function (request, response)
 {
@@ -39,7 +52,7 @@ http.createServer(function (request, response)
       // responseBody 전송
       response.end();
    });   
-}).listen(8000);
+}).listen(8001);
 
 
-console.log('Nodejs Server가 http://127.0.0.1:8000/ 주소로 실행중입니다.');
+console.log('Nodejs Server가 http://127.0.0.1:8001/ 주소로 실행중입니다.');
