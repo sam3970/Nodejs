@@ -4,7 +4,10 @@ var url = require('url');
 
 var express = require('express');
 var app = express();
-var router = require('./router/main.js')(app);
+var bodyParser = require('body-parser');
+var session = require('express-session');
+var fs = require("fs");
+//var router = require('./router/main.js')(app);
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
@@ -13,7 +16,19 @@ app.engine('html', require('ejs').renderFile);
 var server = app.listen(3000, function(){
     console.log("Express server has started on port 3000")
 });
+
 app.use(express.static('public'));
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended :true})); 
+//만약 아무 옵션을 주지 않는다면, body-parser deprecated undefined extended: provide extended option 같은 문구가 뜬다.
+app.use(session({
+	secret: '@#@$MYSIGN#@$#$',
+	resave: false,
+	saveUninitialized: true
+}));
+
+var router = require('./router/main.js')(app, fs);
 
 //서버 생성
 http.createServer(function (request, response)
