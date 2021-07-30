@@ -81,13 +81,61 @@ promise
     console.log('무조건');
   });*/
 
-  const url = require('url');
+  /*
+  getAll() 키에 해당하는 모든 값들을 가져옴
+  get() 키에 해당하는 첫 번째 값만 가져옴
+  has() 해당 키가 있는지 없는지를 검사
+  keys() searchParams의 모든 키를 반복기 객체로 가져옴
+  values() searchParams의 모든 값을 반복기 객체로 가져옴
+  append() 해당 키를 추가합니다.
 
-  const { URL } = url;
-  const myURL = new URL('http://www.gilbut.co.kr/book/bookList.aspx?sercate1=001001000#anchor');
-  console.log('new URL():', myURL);
-  console.log('url.format():', url.format(myURL));
-  console.log('------------------------------');
-  const parsedUrl = url.parse('http://www.gilbut.co.kr/book/bookList.aspx?sercate1=001001000#anchor');
-  console.log('url.parse():', parsedUrl);
-  console.log('url.format():', url.format(parsedUrl));
+  */
+
+  
+  /*const EventEmitter = require('events');
+
+  const myEvent = new EventEmitter();
+  myEvent.addListener('event1', () => {
+    console.log('이벤트 1');
+  });
+  myEvent.on('event2', () => {
+    console.log('이벤트 2');
+  });
+  myEvent.on('event2', () => {
+    console.log('이벤트 2 추가');
+  });
+  myEvent.once('event3', () => {
+    console.log('이벤트 3');
+  }); // 한 번만 실행됨
+  
+  myEvent.emit('event1'); // 이벤트 호출
+  myEvent.emit('event2'); // 이벤트 호출
+  
+  myEvent.emit('event3');
+  myEvent.emit('event3'); // 실행 안 됨
+  
+  myEvent.on('event4', () => {
+    console.log('이벤트 4');
+  });
+  myEvent.removeAllListeners('event4');
+  myEvent.emit('event4'); // 실행 안 됨
+  
+  const listener = () => {
+    console.log('이벤트 5');
+  };
+  myEvent.on('event5', listener);
+  myEvent.removeListener('event5', listener);
+  myEvent.emit('event5'); // 실행 안 됨
+  
+  console.log(myEvent.listenerCount('event2'));*/
+
+  const http = require('http');
+
+  http.createServer((req, res) => {
+    console.log(req.url, req.headers.cookie);
+    res.writeHead(200, { 'Set-Cookie': 'mycookie=test' });
+    res.end('Hello Cookie');
+  })
+    .listen(8083, () => {
+      console.log('8083번 포트에서 서버 대기 중입니다!');
+    });
